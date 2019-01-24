@@ -9,6 +9,13 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var action = require('./routes/action');
+var login = require('./routes/login');
+var organization = require('./routes/organization');
+var person = require('./routes/person');
+var personaction = require('./routes/personaction');
+var personorganization = require('./routes/personorganization');
+var sector = require('./routes/sector');
 
 var server; 
 var app = express();
@@ -27,6 +34,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/action', action);
+app.use('/login', login);
+app.use('/organization', organization);
+app.use('/person', person);
+app.use('/personaction', personaction);
+app.use('/personorganization', personorganization);
+app.use('/sector', sector);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
