@@ -14,6 +14,8 @@ router.get('/add', function (_req, _res) {
         'PersonFirstName': _req.query.PersonFirstName,
         'PersonContactInfo': _req.query.PersonContactInfo,
         'PersonLinkedIn': _req.query.PersonLinkedInURL,
+        'CreatedBy': _req.query.CreatedBy,
+        'CreatedDate': _req.query.CreatedDate,
         'actions': _req.query.Actions,
         'organizations': _req.query.Organizations,
     }
@@ -27,6 +29,8 @@ router.get('/edit', function (_req, _res) {
         'PersonFirstName': _req.query.PersonFirstName,
         'PersonContactInfo': _req.query.PersonContactInfo,
         'PersonLinkedIn': _req.query.PersonLinkedInURL,
+        'ModifiedBy': _req.query.ModifiedBy,
+        'ModifiedDate': _req.query.ModifiedDate,
         'actions': _req.query.Actions,
         'organizations': _req.query.Organizations,
     }

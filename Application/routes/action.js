@@ -14,6 +14,9 @@ router.get('/add', function (_req, _res) {
         'ActionPurpose': _req.query.ActionPurpose,
         'ActionSector': _req.query.ActionSector,
         'ActionOwner': _req.query.ActionOwner,
+        'ActionWebsite' : _req.query.ActionWebsite,
+        'CreatedBy': _req.query.CreatedBy,
+        'CreatedDate': _req.query.CreatedDate,
         'persons': _req.query.Persons
     }
     db.insertStoredProcedureToExecute(_res, 'InsertActionData', params);
@@ -26,6 +29,9 @@ router.get('/edit', function (_req, _res) {
         'ActionPurpose': _req.query.ActionPurpose,
         'ActionSector': _req.query.ActionSector,
         'ActionOwner': _req.query.ActionOwner,
+        'ActionWebsite' : _req.query.ActionWebsite,
+        'ModifiedBy': _req.query.ModifiedBy,
+        'ModifiedDate': _req.query.ModifiedDate,
         'persons': _req.query.Persons
     }
     db.editStoredProcedureToExecute(_res, 'EditActionData', params);
