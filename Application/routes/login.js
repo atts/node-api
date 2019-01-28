@@ -4,6 +4,20 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const salt = bcrypt.genSaltSync(10);
 const Linkedin = require('node-linkedin')('789seuq6gqlxgt', '2UggsHJrhTGPBlQc');
+var db = require('./dbOperations');
+
+const _sqlPackage = require('mssql');
+
+const dbConfig = {
+    user: "wiwowserveradmin@wiwowserver",
+    password: "Wiwow$20",
+    server: "wiwowserver.database.windows.net",
+    port: 1433,
+    database: "wiwowDB-prod",
+    options: {
+        "encrypt": true,
+    }
+};
 
 const scope = ['r_basicprofile', 'r_emailaddress'];
 var origin = "";
@@ -13,7 +27,7 @@ router.get('/', function (req, res) {
     Linkedin.auth.authorize(res, scope);
 });
 
-Linkedin.auth.setCallback('http://api-prod.azurewebsites.net/oauth/linkedin/callback');
+Linkedin.auth.setCallback('http://api-prod.azurewebsites.net/login/oauth/linkedin/callback');
 
 router.get('/oauth/linkedin/callback', function (req, res) {
     var userData;
@@ -37,24 +51,22 @@ router.get('/oauth/linkedin/callback', function (req, res) {
     });
     promise.then(function (value) {
         res.redirect(origin + "?&UserName=" + value.formattedName + "&UserEmail=" + value.emailAddress + "&UserImageUrl=" + encodeURIComponent(value.pictureUrl) + "&Location=" + value.location.name + "&Connections=" + value.numConnections + "&LinkedInProfile=" + encodeURIComponent(value.publicProfileUrl));
-       //res.redirect("https://qa-wiwow.azurewebsites.net/login?&UserName=" + value.formattedName + "&UserEmail=" + value.emailAddress + "&UserImageUrl=" + encodeURIComponent(value.pictureUrl) + "&Location=" + value.location.name + "&Connections=" + value.numConnections + "&LinkedInProfile=" + encodeURIComponent(value.publicProfileUrl));
     });
 });
 
 router.get('/user/set', function (_req, _res) {
     var Sqlquery = "Update dbo.tblPerson SET IsVisible='" + _req.query.value + "' where PersonUniqueID='" + _req.query.PersonUniqueID + "'";
-    console.log(Sqlquery);
-    QueryToExecuteInDatabase(_res, Sqlquery);
+    db.QueryToExecuteInDatabase(_res, Sqlquery);
 });
 
 router.get('/user/claim', function (_req, _res) {
     var Sqlquery = "Update dbo.tblUserLoginDetails SET PeopleID ='" + _req.query.PeopleID + "' where UserEmail='" + _req.query.UserEmail + "'";
-    QueryToExecuteInDatabase(_res, Sqlquery);
+    db.QueryToExecuteInDatabase(_res, Sqlquery);
 });
 
 router.get('/user/claim/update', function (_req, _res) {
     var Sqlquery = "Update dbo.tblPerson SET PersonLinkedIn ='" + _req.query.LinkedInID + "' where PersonContactInfo='" + _req.query.UserEmail + "'";
-    QueryToExecuteInDatabase(_res, Sqlquery);
+    db.QueryToExecuteInDatabase(_res, Sqlquery);
 });
 
 router.get('/user/add', function (_req, _res) {
@@ -66,7 +78,7 @@ router.get('/user/add', function (_req, _res) {
         'LinkedInProfile': _req.query.LinkedInProfile,
         'LinkedInConnections': _req.query.LinkedInConnections,
     };
-    insertStoredProcedureToExecute(_res, 'InsertUserLoginDetails', params);
+    db.insertStoredProcedureToExecute(_res, 'InsertUserLoginDetails', params);
 });
 
 router.get('/user/register', function (_req, _res) {
@@ -77,17 +89,17 @@ router.get('/user/register', function (_req, _res) {
         'UserEmail': _req.query.UserEmail,
         'Password': hash,
     };
-    insertStoredProcedureToExecute(_res, 'RegisterUserLoginDetails', params);
+    db.insertStoredProcedureToExecute(_res, 'RegisterUserLoginDetails', params);
 });
 
 router.get('/user/update', function (_req, _res) {
     var Sqlquery = "Update dbo.tblUserLoginDetails SET UserName='" + _req.query.UserName + "', UserPhone='" + _req.query.UserPhone + "',AboutMe='" + _req.query.AboutMe + "' where UserEmail='" + _req.query.UserEmail + "'";
-    QueryToExecuteInDatabase(_res, Sqlquery);
+    db.QueryToExecuteInDatabase(_res, Sqlquery);
 });
 
 router.get('/user/get', function (_req, _res) {
     var Sqlquery = "Select UserEmail,UserName,UserImage,UserRole,UserPhone,UserPhone,PeopleID,LinkedInProfile,AboutMe,Location,LinkedInConnections,UserImageUrl from dbo.tblUserLoginDetails where UserEmail='" + _req.query.UserEmail + "'";
-    QueryToExecuteInDatabase(_res, Sqlquery);
+    db.QueryToExecuteInDatabase(_res, Sqlquery);
 });
 
 router.get('/user/check', function (_req, _res) {
