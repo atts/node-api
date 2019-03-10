@@ -18,6 +18,7 @@ router.get('/add', function (_req, _res) {
         'CreatedDate': _req.query.CreatedDate,
         'actions': _req.query.Actions,
         'organizations': _req.query.Organizations,
+        'Location': _req.query.Location
     }
     db.insertStoredProcedureToExecute(_res, 'InsertPersonData', params);
 });
@@ -33,6 +34,7 @@ router.get('/edit', function (_req, _res) {
         'ModifiedDate': _req.query.ModifiedDate,
         'actions': _req.query.Actions,
         'organizations': _req.query.Organizations,
+        'Location': _req.query.Location
     }
     db.editStoredProcedureToExecute(_res, 'EditPersonData', params);
 });

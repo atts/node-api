@@ -17,7 +17,8 @@ router.get('/add', function (_req, _res) {
         'ActionWebsite' : _req.query.ActionWebsite,
         'CreatedBy': _req.query.CreatedBy,
         'CreatedDate': _req.query.CreatedDate,
-        'persons': _req.query.Persons
+        'persons': _req.query.Persons,
+        'Location': _req.query.Location
     }
     db.insertStoredProcedureToExecute(_res, 'InsertActionData', params);
 });
@@ -32,7 +33,8 @@ router.get('/edit', function (_req, _res) {
         'ActionWebsite' : _req.query.ActionWebsite,
         'ModifiedBy': _req.query.ModifiedBy,
         'ModifiedDate': _req.query.ModifiedDate,
-        'persons': _req.query.Persons
+        'persons': _req.query.Persons,
+        'Location': _req.query.Location
     }
     db.editStoredProcedureToExecute(_res, 'EditActionData', params);
 });

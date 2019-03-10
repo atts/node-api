@@ -18,7 +18,8 @@ router.get('/add', function (_req, _res) {
         'OrganizationOwner': _req.query.OrganizationOwner,
         'CreatedBy': _req.query.CreatedBy,
         'CreatedDate': _req.query.CreatedDate,
-        'persons': _req.query.Persons
+        'persons': _req.query.Persons,
+        'Location': _req.query.Location
     } 
     db.insertStoredProcedureToExecute(_res, 'InsertOrganizationData', params);
 });
@@ -34,7 +35,8 @@ router.get('/edit', function (_req, _res) {
         'OrganizationOwner': _req.query.OrganizationOwner,
         'ModifiedBy': _req.query.ModifiedBy,
         'ModifiedDate': _req.query.ModifiedDate,
-        'persons': _req.query.Persons
+        'persons': _req.query.Persons,
+        'Location': _req.query.Location
     }
     db.editStoredProcedureToExecute(_res, 'EditOrganizationData', params);
 });
