@@ -8,7 +8,7 @@ router.get('/get', function (_req, _res) {
 });
 
 router.get('/add', function (_req, _res) {
-    var Sqlquery = "Insert into dbo.tblSector ('SectorName') values ('" + _req.query.SectorName + "')";
+    var Sqlquery = "Insert into dbo.tblSector (SectorName) values ('" + _req.query.SectorName + "')";
     db.QueryToExecuteInDatabase(_res, Sqlquery);
 });
 
