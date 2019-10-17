@@ -5,7 +5,7 @@ Sample Nodejs Express web application for Data CRUD operations to DB.
 ##Getting started
 
 1. Clone this repo.
-2. Open the repo in IDE and nvigation to folder Application.
+2. Open the repo in IDE and navigate to folder Application.
 3. Npm install
 4. Npm start
 5. Open browser to URL : localhost:3000
