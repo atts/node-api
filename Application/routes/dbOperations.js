@@ -2,11 +2,15 @@
 const _sqlPackage = require('mssql');
 
 const dbConfig = {
-    user: "<username>",
-    password: "<password>",
-    server: "<serve name or IP>",
+    user: "atts",
+    password: "server@123",
+    server: "attsserver.database.windows.net",
     port: 1433,
-    database: "<db name>"
+    database: "testdb",
+    //database: "wiwowDB-prod",
+    options: {
+        "encrypt": true,
+    }
 };
 
 var conn = new _sqlPackage.ConnectionPool(dbConfig);
