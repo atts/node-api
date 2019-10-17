@@ -1,0 +1,1 @@
+create table MultiplicationData (Number1 varchar(255), Number2 varchar(255), Result varchar(255), TimestampValue varchar(255))
