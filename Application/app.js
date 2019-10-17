@@ -8,16 +8,9 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
-var action = require('./routes/action');
-var login = require('./routes/login');
-var organization = require('./routes/organization');
-var person = require('./routes/person');
-var personaction = require('./routes/personaction');
-var personorganization = require('./routes/personorganization');
-var sector = require('./routes/sector');
+var data = require('./routes/data');
 
-var server; 
+var server;
 var app = express();
 
 // view engine setup
@@ -33,17 +26,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/users', users);
-app.use('/action', action);
-app.use('/login', login);
-app.use('/organization', organization);
-app.use('/person', person);
-app.use('/personaction', personaction);
-app.use('/personorganization', personorganization);
-app.use('/sector', sector);
+app.use('/data', data);
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
+app.use(function(req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
@@ -54,7 +40,7 @@ app.use(function (req, res, next) {
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
-    app.use(function (err, req, res, next) {
+    app.use(function(err, req, res, next) {
         res.status(err.status || 500);
         res.render('error', {
             message: err.message,
@@ -65,7 +51,7 @@ if (app.get('env') === 'development') {
 
 // production error handler
 // no stacktraces leaked to user
-app.use(function (err, req, res, next) {
+app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {
         message: err.message,
@@ -75,13 +61,13 @@ app.use(function (err, req, res, next) {
 
 app.set('port', process.env.PORT || 3000);
 
-exports.listen = function () {
-    server = app.listen(app.get('port'), function () {
+exports.listen = function() {
+    server = app.listen(app.get('port'), function() {
         debug('Express server listening on port ' + server.address().port);
     });
 }
 
-exports.close = function () {
+exports.close = function() {
     server.close(() => {
         debug('Server stopped.');
     });
