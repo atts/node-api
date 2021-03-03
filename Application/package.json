@@ -20,7 +20,7 @@
     "morgan": "^1.9.1",
     "mssql": "^4.2.3",
     "node-linkedin": "^0.5.6",
-    "pug": "^2.0.0-beta6",
+    "pug": "^3.0.1",
     "request": "^2.88.0",
     "serve-favicon": "^2.3.0"
   },
